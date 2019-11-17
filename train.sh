@@ -1,0 +1,1 @@
+python run_pit.py --config ./conf/train.yaml

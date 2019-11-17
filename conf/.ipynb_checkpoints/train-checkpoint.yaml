@@ -1,0 +1,57 @@
+# config for training
+
+trainer:
+  checkpoint: "./tune/2spk_pit_a"
+  optimizer: "adam"
+  # 1e-3 => str
+  # 1.0e-3 => float
+  lr: 1.0e-3
+  momentum: 0.9
+  weight_decay: 0
+  clip_norm: 200
+  min_lr: 1.0e-10
+  patience: 1
+  factor: 0.7
+  disturb_std: 0.2
+
+model:
+  num_spks: 2
+  rnn: "lstm"
+  num_layers: 3
+  hidden_size: 896
+  dropout: 0.5
+  non_linear: "relu"
+  bidirectional: true
+
+spectrogram_reader:
+  frame_shift: 128
+  frame_length: 256
+  window: "hann"
+  transpose: true
+  # NOTE: do not apply log here
+  # false => produce psm
+  # true  => produce irm
+  apply_abs: true
+
+train_scp_conf:
+  mixture: "/home/likai/data1/create_scp/tr_mix.scp"
+  spk1: "/home/likai/data1/create_scp/tr_s1.scp"
+  spk2: "/home/likai/data1/create_scp/tr_s2.scp"
+
+valid_scp_conf:
+  mixture: "/home/likai/data1/create_scp/cv_mix.scp"
+  spk1: "/home/likai/data1/create_scp/cv_s1.scp"
+  spk2: "/home/likai/data1/create_scp/cv_s2.scp"
+
+debug_scp_conf:
+  mixture: "./data/tune/mix.scp"
+  spk1: "./data/tune/spk1.scp"
+  spk2: "./data/tune/spk2.scp"
+
+dataloader:
+  shuffle: true
+  batch_size: 8
+  drop_last: false
+  apply_log: true
+  mvn_dict: "cmvn.dict"
+
