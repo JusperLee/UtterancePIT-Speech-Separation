@@ -1,0 +1,1 @@
+python separate.py --dump-dir cache ./conf/train.yaml ./tune/test/epoch.100.pkl ../create_scp/tt_mix.scp
